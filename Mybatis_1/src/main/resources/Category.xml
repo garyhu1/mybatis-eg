@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.garyhu.pojo">
+    <resultMap id="categoryBean" type="Category">
+        <id column="cid" property="id"/>
+        <result column="cname" property="name"/>
+        <collection property="products" ofType="Product">
+            <id column="pid" property="id"/>
+            <result column="pname" property="name"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+
+    <select id="listCategory" resultMap="categoryBean">
+        SELECT c.*,p.*,c.id 'cid',p.id 'pid',c.name 'cname',p.name 'pname' FROM category_ c LEFT JOIN product_ p ON c.id = p.cid
+    </select>
+
+    <select id="getCategory" parameterType="_int" resultMap="categoryBean">
+        SELECT c.*,p.*,c.id 'cid',p.id 'pid',c.name 'cname',p.name 'pname' FROM category_ c LEFT JOIN product_ p on c.id = p.cid where c.id = #{id}
+    </select>
+</mapper>
