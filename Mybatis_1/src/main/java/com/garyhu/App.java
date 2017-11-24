@@ -27,9 +27,9 @@ public class App
 
 //        listByXML(ss);
 
-        getProductById(ss);
+//        getProductById(ss);
 
-//        addProduct(ss);
+        addProduct(ss);
 //        listByMapper(ss);
 
 //        listCategory(ss);
@@ -45,10 +45,10 @@ public class App
     }
 
     public static  void addProduct(SqlSession ss){
-        Category c = ss.selectOne("getCategory");
+        Category c = ss.selectOne("getCategory",1);
         Product p = new Product();
-        p.setName("魅族");
-        p.setPrice(1299.0f);
+        p.setName("小米");
+        p.setPrice(3999);
         p.setCategory(c);
         ss.insert("addProduct",p);
         listByXML(ss);

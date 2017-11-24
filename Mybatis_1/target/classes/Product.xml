@@ -21,10 +21,13 @@
     </select>
 
     <select id="getProductById" parameterType="_int" resultMap="productBean">
-        select c.*,p.*,c.id 'cid',p.id 'pid',c.name 'cname',p.name 'pname' from category_ c, product_ p WHERE c.id = p.cid AND p.id=#{id}
+        select c.*,p.*,c.id 'cid',p.id 'pid',c.name 'cname',p.name 'pname'
+        from category_ c
+        LEFT JOIN product_ p on c.id = p.cid
+        WHERE  p.id=#{id}
     </select>
     
     <insert id="addProduct" parameterType="Product">
-        insert into product_ (id,name,price) values (#{id},#{name},#{price})
+        insert into product_ (id,name,price,cid) values (null,#{name},#{price},#{category.id})
     </insert>
 </mapper>
